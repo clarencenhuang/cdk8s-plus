@@ -829,6 +829,8 @@ cdk8s_plus_22.Deployment(
   volumes: typing.List[Volume] = None,
   pod_metadata: ApiObjectMetadata = None,
   default_selector: bool = None,
+  min_ready: Duration = None,
+  progress_deadline: Duration = None,
   replicas: typing.Union[int, float] = None
 )
 ```
@@ -965,6 +967,36 @@ Automatically allocates a pod selector for this deployment.
 
 If this is set to `false` you must define your selector through
 `deployment.podMetadata.addLabel()` and `deployment.selectByLabel()`.
+
+---
+
+##### `min_ready`<sup>Optional</sup> <a name="cdk8s_plus_22.DeploymentProps.parameter.min_ready"></a>
+
+- *Type:* [`cdk8s.Duration`](#cdk8s.Duration)
+- *Default:* Duration.seconds(0)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+Zero means the pod will be considered available as soon as it is ready.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds
+
+---
+
+##### `progress_deadline`<sup>Optional</sup> <a name="cdk8s_plus_22.DeploymentProps.parameter.progress_deadline"></a>
+
+- *Type:* [`cdk8s.Duration`](#cdk8s.Duration)
+- *Default:* Duration.seconds(600)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
+
+The deployment controller will continue
+to process failed deployments and a condition with a ProgressDeadlineExceeded
+reason will be surfaced in the deployment status.
+
+Note that progress will not be estimated during the time a deployment is paused.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
 
 ---
 
@@ -1633,6 +1665,18 @@ Returns a a copy. Use `selectByLabel()` to add labels.
 
 ---
 
+##### `min_ready`<sup>Required</sup> <a name="cdk8s_plus_22.Deployment.property.min_ready"></a>
+
+```python
+min_ready: Duration
+```
+
+- *Type:* [`cdk8s.Duration`](#cdk8s.Duration)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+---
+
 ##### `pod_metadata`<sup>Required</sup> <a name="cdk8s_plus_22.Deployment.property.pod_metadata"></a>
 
 ```python
@@ -1642,6 +1686,18 @@ pod_metadata: ApiObjectMetadataDefinition
 - *Type:* [`cdk8s.ApiObjectMetadataDefinition`](#cdk8s.ApiObjectMetadataDefinition)
 
 Provides read/write access to the underlying pod metadata of the resource.
+
+---
+
+##### `progress_deadline`<sup>Required</sup> <a name="cdk8s_plus_22.Deployment.property.progress_deadline"></a>
+
+```python
+progress_deadline: Duration
+```
+
+- *Type:* [`cdk8s.Duration`](#cdk8s.Duration)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
 
 ---
 
@@ -7182,6 +7238,8 @@ cdk8s_plus_22.DeploymentProps(
   volumes: typing.List[Volume] = None,
   pod_metadata: ApiObjectMetadata = None,
   default_selector: bool = None,
+  min_ready: Duration = None,
+  progress_deadline: Duration = None,
   replicas: typing.Union[int, float] = None
 )
 ```
@@ -7346,6 +7404,44 @@ Automatically allocates a pod selector for this deployment.
 
 If this is set to `false` you must define your selector through
 `deployment.podMetadata.addLabel()` and `deployment.selectByLabel()`.
+
+---
+
+##### `min_ready`<sup>Optional</sup> <a name="cdk8s_plus_22.DeploymentProps.property.min_ready"></a>
+
+```python
+min_ready: Duration
+```
+
+- *Type:* [`cdk8s.Duration`](#cdk8s.Duration)
+- *Default:* Duration.seconds(0)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+Zero means the pod will be considered available as soon as it is ready.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds
+
+---
+
+##### `progress_deadline`<sup>Optional</sup> <a name="cdk8s_plus_22.DeploymentProps.property.progress_deadline"></a>
+
+```python
+progress_deadline: Duration
+```
+
+- *Type:* [`cdk8s.Duration`](#cdk8s.Duration)
+- *Default:* Duration.seconds(600)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
+
+The deployment controller will continue
+to process failed deployments and a condition with a ProgressDeadlineExceeded
+reason will be surfaced in the deployment status.
+
+Note that progress will not be estimated during the time a deployment is paused.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
 
 ---
 

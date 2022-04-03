@@ -796,6 +796,8 @@ Deployment.Builder.create(Construct scope, java.lang.String id)
 //  .volumes(java.util.List<Volume>)
 //  .podMetadata(ApiObjectMetadata)
 //  .defaultSelector(java.lang.Boolean)
+//  .minReady(Duration)
+//  .progressDeadline(Duration)
 //  .replicas(java.lang.Number)
     .build();
 ```
@@ -932,6 +934,36 @@ Automatically allocates a pod selector for this deployment.
 
 If this is set to `false` you must define your selector through
 `deployment.podMetadata.addLabel()` and `deployment.selectByLabel()`.
+
+---
+
+##### `minReady`<sup>Optional</sup> <a name="org.cdk8s.plus22.DeploymentProps.parameter.minReady"></a>
+
+- *Type:* [`org.cdk8s.Duration`](#org.cdk8s.Duration)
+- *Default:* Duration.seconds(0)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+Zero means the pod will be considered available as soon as it is ready.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds
+
+---
+
+##### `progressDeadline`<sup>Optional</sup> <a name="org.cdk8s.plus22.DeploymentProps.parameter.progressDeadline"></a>
+
+- *Type:* [`org.cdk8s.Duration`](#org.cdk8s.Duration)
+- *Default:* Duration.seconds(600)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
+
+The deployment controller will continue
+to process failed deployments and a condition with a ProgressDeadlineExceeded
+reason will be surfaced in the deployment status.
+
+Note that progress will not be estimated during the time a deployment is paused.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
 
 ---
 
@@ -1113,6 +1145,18 @@ Returns a a copy. Use `selectByLabel()` to add labels.
 
 ---
 
+##### `minReady`<sup>Required</sup> <a name="org.cdk8s.plus22.Deployment.property.minReady"></a>
+
+```java
+public Duration getMinReady();
+```
+
+- *Type:* [`org.cdk8s.Duration`](#org.cdk8s.Duration)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+---
+
 ##### `podMetadata`<sup>Required</sup> <a name="org.cdk8s.plus22.Deployment.property.podMetadata"></a>
 
 ```java
@@ -1122,6 +1166,18 @@ public ApiObjectMetadataDefinition getPodMetadata();
 - *Type:* [`org.cdk8s.ApiObjectMetadataDefinition`](#org.cdk8s.ApiObjectMetadataDefinition)
 
 Provides read/write access to the underlying pod metadata of the resource.
+
+---
+
+##### `progressDeadline`<sup>Required</sup> <a name="org.cdk8s.plus22.Deployment.property.progressDeadline"></a>
+
+```java
+public Duration getProgressDeadline();
+```
+
+- *Type:* [`org.cdk8s.Duration`](#org.cdk8s.Duration)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
 
 ---
 
@@ -5317,6 +5373,8 @@ DeploymentProps.builder()
 //  .volumes(java.util.List<Volume>)
 //  .podMetadata(ApiObjectMetadata)
 //  .defaultSelector(java.lang.Boolean)
+//  .minReady(Duration)
+//  .progressDeadline(Duration)
 //  .replicas(java.lang.Number)
     .build();
 ```
@@ -5481,6 +5539,44 @@ Automatically allocates a pod selector for this deployment.
 
 If this is set to `false` you must define your selector through
 `deployment.podMetadata.addLabel()` and `deployment.selectByLabel()`.
+
+---
+
+##### `minReady`<sup>Optional</sup> <a name="org.cdk8s.plus22.DeploymentProps.property.minReady"></a>
+
+```java
+public Duration getMinReady();
+```
+
+- *Type:* [`org.cdk8s.Duration`](#org.cdk8s.Duration)
+- *Default:* Duration.seconds(0)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+Zero means the pod will be considered available as soon as it is ready.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds
+
+---
+
+##### `progressDeadline`<sup>Optional</sup> <a name="org.cdk8s.plus22.DeploymentProps.property.progressDeadline"></a>
+
+```java
+public Duration getProgressDeadline();
+```
+
+- *Type:* [`org.cdk8s.Duration`](#org.cdk8s.Duration)
+- *Default:* Duration.seconds(600)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
+
+The deployment controller will continue
+to process failed deployments and a condition with a ProgressDeadlineExceeded
+reason will be surfaced in the deployment status.
+
+Note that progress will not be estimated during the time a deployment is paused.
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds
 
 ---
 
